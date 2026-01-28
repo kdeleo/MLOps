@@ -14,7 +14,6 @@ url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-03.p
 
 mlflow.set_tracking_uri("http://localhost:5000")
 mlflow.set_experiment("nyc-taxi-experiment") 
-mlflow.sklearn.autolog()
 
 models_folder = Path('models')
 models_folder.mkdir(exist_ok=True)
