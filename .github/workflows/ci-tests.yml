@@ -1,0 +1,39 @@
+name: CI_Tests
+on:
+  pull_request:
+    branches:
+      - 'develop'
+    paths:
+      - '06-best-practices/code/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        working-directory: 06-best-practices/code
+        run: |
+          pip install pipenv && pipenv install --dev
+
+      - name: Run unit tests
+        working-directory: 06-best-practices/code
+        run: |
+          pipenv run pytest tests/
+
+      - name: Lint
+        working-directory: 06-best-practices/code
+        run: |
+          pipenv run pylint --recursive=y .
+
+      - name: Integration tests
+        working-directory: 06-best-practices/code/integration-test
+        run: |
+          ./run.sh
