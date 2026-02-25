@@ -44,6 +44,18 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
+    
+      # --- Set required environment variables for Docker Compose
+      - name: Set LOCAL_IMAGE_NAME and PREDICTIONS_STREAM_NAME
+        run: |
+          echo "LOCAL_IMAGE_NAME=backend-ci:latest" >> $GITHUB_ENV
+          echo "PREDICTIONS_STREAM_NAME=predictions-stream" >> $GITHUB_ENV
+
+      # --- Build backend image if needed
+      - name: Build backend Docker image
+        working-directory: 06-best-practices/code/integration-test
+        run: |
+          docker build -t backend-ci:latest ..
 
       # --- Start LocalStack using docker-compose ---
       - name: Start LocalStack
