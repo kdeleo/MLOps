@@ -46,4 +46,5 @@ if [ $ERROR_CODE != 0 ]; then
   exit ${ERROR_CODE}
 fi
 
+
 docker-compose down
