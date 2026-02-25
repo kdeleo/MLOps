@@ -38,6 +38,21 @@ jobs:
         run: |
           pipenv run pylint --recursive=y .
 
+      # --- Install Docker Compose ---
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
+      # --- Start LocalStack using docker-compose ---
+      - name: Start LocalStack
+        working-directory: 06-best-practices/code/integration-test
+        run: |
+          docker-compose up -d
+          sleep 10
+
+      # --- Run Integration Tests ---
       - name: Integration tests
         working-directory: 06-best-practices/code/integration-test
         run: |
