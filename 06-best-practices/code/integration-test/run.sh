@@ -17,7 +17,7 @@ export PREDICTIONS_STREAM_NAME="ride_predictions"
 
 docker-compose up -d
 
-sleep 1
+sleep 10
 
 
 aws --endpoint-url=http://localhost:4566 \
@@ -45,5 +45,6 @@ if [ $ERROR_CODE != 0 ]; then
   docker-compose down
   exit ${ERROR_CODE}
 fi
+
 
 docker-compose down
