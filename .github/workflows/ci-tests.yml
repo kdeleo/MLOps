@@ -6,6 +6,11 @@ on:
     paths:
       - '06-best-practices/code/**'
 
+env:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ACCESS_KEY_ID: "abc"
+    AWS_SECRET_ACCESS_KEY: "xyz"
+
 jobs:
   test:
     runs-on: ubuntu-latest
